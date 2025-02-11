@@ -7,18 +7,25 @@ on:
       - "**"
   workflow_dispatch:
 jobs:
-  build:
+  scans:
     steps:
-      - name: Say hello
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
-        run: |
-          echo "hello world"
-      - name: checkout
-        uses: https://github.com/cloudbees-io/checkout@v1
-  
       - name: scan
         uses: cloudbees-io/sonarqube-bundled-sast-scan-code@v2
         kind: scan
         with:
           language: PYTHON
+
+  build:
+    needs: [ scans ]
+    steps:
+      - name: checkout
+        uses: https://github.com/cloudbees-io/checkout@v1
+
+      - name: Build project and Run tests for Python App
+        uses: docker://python:3.11.3-bullseye
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m pytest tests/
+  
+      
