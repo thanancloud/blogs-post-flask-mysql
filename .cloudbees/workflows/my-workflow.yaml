@@ -31,6 +31,15 @@ jobs:
   publish:
     needs: [ build ]
     steps:
+      - name: checkout
+        uses: https://github.com/cloudbees-io/checkout@v1
+
+      - name: list all files
+        uses: docker://bash:5
+        shell: bash
+        run: |
+            ls -al
+
       - name: Set up Docker Hub registry
         uses: https://github.com/cloudbees-io/configure-oci-credentials@v1
         with:
