@@ -1,12 +1,11 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
 name: My workflow
-
 on:
   push:
     branches:
-      - '**'
-
+      - "**"
+  workflow_dispatch:
 jobs:
   build:
     steps:
@@ -15,3 +14,11 @@ jobs:
         shell: sh
         run: |
           echo "hello world"
+      - name: checkout
+        uses: https://github.com/cloudbees-io/checkout@v1
+  
+      - name: scan
+        uses: cloudbees-io/sonarqube-bundled-sast-scan-code@v2
+        kind: scan
+        with:
+          language: PYTHON
