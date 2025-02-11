@@ -28,4 +28,18 @@ jobs:
           pip install -r requirements.txt
           python -m pytest tests/ || true
   
+  publish:
+    needs: [ build ]
+    steps:
+      - name: Set up Docker Hub registry
+        uses: https://github.com/cloudbees-io/configure-oci-credentials@v1
+        with:
+          registry: index.docker.io # or docker.io
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push image to OCI registry
+        uses: https://github.com/cloudbees-io/kaniko@v1
+        with:
+            destination: index.docker.io/${{ vars.DOCKER_USERNAME }}/python-flask-cb:1.0.0
+  
       
