@@ -7,6 +7,7 @@
 
 3. Run the project `FLASK_DEBUG=1 flask run`
 4. Use CB
+5. TODO: Needs to do documentation
 
 
 
