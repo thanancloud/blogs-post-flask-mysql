@@ -29,6 +29,7 @@ jobs:
         shell: sh
         run: |
           git -v
-          git log --pretty=format:"%H - %an <%ae> - %s" | awk -F - '{print $1}'
-          git log --pretty=format:"%H - %an <%ae> - %s" | awk -F - '{print $2}'
-          git log --pretty=format:"%H - %an <%ae> - %s" | awk -F - '{print $3}'
+          git log --pretty=format:"%H _ %an <%ae> _ %s"
+          git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $1}'
+          git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $2}'
+          git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $3}'
