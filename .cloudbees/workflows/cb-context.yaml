@@ -29,4 +29,4 @@ jobs:
         shell: sh
         run: |
           git -v
-          git log --pretty=format:"%h - %an <%ae> - %s"
+          git log --pretty=format:"%H - %an <%ae> - %s"
