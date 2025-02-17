@@ -16,5 +16,4 @@ jobs:
           cat /etc/*release*
           echo ${{ cloudbees.scm.sha }}
           echo ${{ cloudbees.scm.branch }}
-          echo ${{ cloudbees.scm.committer}}
           echo ${{ cloudbees.run_id }}
