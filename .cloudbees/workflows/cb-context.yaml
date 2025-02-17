@@ -12,3 +12,4 @@ jobs:
         shell: sh
         run: |
           echo $PATH
+          echo ${{ cloudbees.api.url }}
