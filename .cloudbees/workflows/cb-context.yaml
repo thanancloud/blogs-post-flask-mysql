@@ -28,9 +28,9 @@ jobs:
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
         run: |
-          export COMMIT_ID= $(git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $1}')
-          export AUTHOR= $(git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $2}')
-          export MESSAGE= $(git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $3}')
+          export COMMIT_ID=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $1}')
+          export AUTHOR=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $2}')
+          export MESSAGE=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | awk -F _ '{print $3}')
           echo $AUTHOR
           echo $COMMIT_ID
           echo $MESSAGE
