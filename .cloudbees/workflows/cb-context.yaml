@@ -17,3 +17,5 @@ jobs:
           echo ${{ cloudbees.scm.sha }}
           echo ${{ cloudbees.scm.branch }}
           echo ${{ cloudbees.run_id }}
+          echo ${{ cloudbees.scm.ref }}
+          echo ${{ cloudbees.scm.token }}
