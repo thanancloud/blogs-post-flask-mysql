@@ -6,6 +6,7 @@
 2. Run the flask project in debug mode by setting `FLASK_DEBUG=1` or `FLASK_ENVIRONMENT=development`
 
 3. Run the project `FLASK_DEBUG=1 flask run`
+4. Use CB
 
 
 
