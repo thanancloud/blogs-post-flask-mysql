@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 1
         
-      - name: Say hello
+      - name: CB - Context
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
@@ -24,7 +24,8 @@ jobs:
           echo ${{ cloudbees.run_id }}
           echo ${{ cloudbees.scm.ref }}
           echo ${{ cloudbees.scm.token }}
-      - name: Say hello
+
+      - name: Git Details
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
         run: |
@@ -34,3 +35,23 @@ jobs:
           echo $AUTHOR
           echo $COMMIT_ID
           echo $MESSAGE
+
+      - name: If else
+        uses: docker://golang:1.20.3-alpine3.17
+        env:
+          CI_BRANCH: ${{ cloudbees.scm.branch }} 
+        shell: sh
+        run: |
+          if[ '${{ cloudbees.event_name }}' = 'push' ]; then
+            MESSAGE=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | egrep -o 'CBP-[0-9]+')
+         
+            if [[ $CI_BRANCH =~[0-9]+ || $MESSAGE =~ CBP-[0-9]+  ]]; then
+                echo $CI_BRANCH
+                echo $MESSAGE
+            else
+                echo "No match found"
+            fi
+
+            echo " The push event is ${{ cloudbees.event_name }}"
+
+          fi
