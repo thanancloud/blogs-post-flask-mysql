@@ -45,8 +45,8 @@ jobs:
           git -v
           if [ '${{ cloudbees.event_name }}' = 'workflow_dispatch' ]; then
             MESSAGE=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | grep -oE 'CBP-[0-9]+')
-            echo "MESSGAE: +$MESSAGE"
-            if [ $CI_BRANCH =~ [0-9]+ || $MESSAGE =~ CBP-[0-9]+  ]; then
+        
+            if echo "$CI_BRANCH" | grep -q '[0-9]\+' || echo "$MESSAGE" | grep -q 'CBP-[0-9]\+'; then
                 echo $CI_BRANCH
                 echo $MESSAGE
             else
