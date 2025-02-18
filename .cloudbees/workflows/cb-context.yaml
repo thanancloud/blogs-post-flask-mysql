@@ -44,15 +44,11 @@ jobs:
         run: |
           git -v
           if [ '${{ cloudbees.event_name }}' = 'workflow_dispatch' ]; then
-            MESSAGE=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | grep -oE 'CBP-[0-9]+')
+            ENV=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | awk -F'[][]' '{print $2}')
+            TAG=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | awk -F'[][]' '{print $4}')
         
-            if echo "$CI_BRANCH" | grep -q '[0-9]\+' || echo "$MESSAGE" | grep -q 'CBP-[0-9]\+'; then
-                echo $CI_BRANCH
-                echo $MESSAGE
-            else
-                echo "No match found"
-            fi
-
+            echo "Environment: $ENV"
+            echo "TAG: $TAG"
           else
             echo  " The push event is ${{ cloudbees.event_name }}"
           fi
