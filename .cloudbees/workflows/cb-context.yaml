@@ -52,5 +52,6 @@ jobs:
                 echo "No match found"
             fi
 
-            echo echo " The push event is ${{ cloudbees.event_name }}"
+          else
+            echo  " The push event is ${{ cloudbees.event_name }}"
           fi
