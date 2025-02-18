@@ -42,7 +42,7 @@ jobs:
           CI_BRANCH: ${{ cloudbees.scm.branch }} 
         shell: sh
         run: |
-          if [ '${{ cloudbees.event_name }}' = 'push' ]; then
+          if [ '${{ cloudbees.event_name }}' = 'workflow_dispatch' ]; then
             MESSAGE=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | egrep -o 'CBP-[0-9]+')
          
             if [[ $CI_BRANCH =~ [0-9]+ || $MESSAGE =~ CBP-[0-9]+  ]]; then
