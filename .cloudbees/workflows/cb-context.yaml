@@ -42,16 +42,15 @@ jobs:
           CI_BRANCH: ${{ cloudbees.scm.branch }} 
         shell: sh
         run: |
-          if[ '${{ cloudbees.event_name }}' = 'push' ]; then
+          if [ '${{ cloudbees.event_name }}' = 'push' ]; then
             MESSAGE=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | egrep -o 'CBP-[0-9]+')
          
-            if [[ $CI_BRANCH =~[0-9]+ || $MESSAGE =~ CBP-[0-9]+  ]]; then
+            if [[ $CI_BRANCH =~ [0-9]+ || $MESSAGE =~ CBP-[0-9]+  ]]; then
                 echo $CI_BRANCH
                 echo $MESSAGE
             else
                 echo "No match found"
             fi
 
-            echo " The push event is ${{ cloudbees.event_name }}"
-
+            echo echo " The push event is ${{ cloudbees.event_name }}"
           fi
