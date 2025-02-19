@@ -59,6 +59,8 @@ jobs:
           echo $AUTHOR
           echo $COMMIT_ID
           echo $MESSAGE
+          echo $SHELL
+          
       - name: If else
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
