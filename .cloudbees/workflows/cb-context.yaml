@@ -42,12 +42,13 @@ jobs:
       - name: If else
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
+        env:
+          CI_BRANCH: ${{ cloudbees.scm.branch }} 
         run: |
           
-          if [ '${{ cloudbees.event_name }}' = 'workflow_dispatch' || '${{ cloudbees.event_name }}' = 'push' ]; then
+          if [ "${{ cloudbees.event_name }}" = "push" ] && [ "$CI_BRANCH" != "main" ]; then
             ENV=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | awk -F'[][]' '{print $2}')
-            TAG1=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' )
-            TAG=echo $TAG1 | awk -F'[][]' '{print $4}'
+            TAG=$(git log --pretty=format:"%H _ %an <%ae> _ %s" | head -n 1 | awk -F _ '{print $3}' | awk -F'[][]' '{print $4}')
             echo "Environment: $ENV"
             echo "TAG: $TAG"
           else
