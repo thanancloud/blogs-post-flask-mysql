@@ -25,6 +25,8 @@ jobs:
           echo ${{ cloudbees.run_id }}
           echo ${{ cloudbees.scm.ref }}
           echo ${{ cloudbees.scm.token }}
+          echo ${{ cloudbees.event_name }}
+          
       - name: Git Details
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
