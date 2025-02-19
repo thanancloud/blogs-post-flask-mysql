@@ -47,6 +47,12 @@ jobs:
           echo "Test ENVIRONMENT $ENVIRONMENT"
           echo "Test TAG: $TAG"
           echo "Smoke|FM|ActionTest" | sed 's/\([A-Za-z0-9_]*\)/@\1/g'
+
+      - name: GGet terminal details
+        uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
+        run: |
+            echo $SHELL
+            pstree -p | grep -i terminal
           
       - name: Git Details
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
@@ -60,6 +66,7 @@ jobs:
           echo $COMMIT_ID
           echo $MESSAGE
           echo $SHELL
+          pstree -p | grep -i terminal
 
       - name: If else
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
