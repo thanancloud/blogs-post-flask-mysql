@@ -30,7 +30,7 @@ jobs:
       - name: Git checkout
         uses: https://github.com/cloudbees-io/checkout@v1
         with:
-          fetch-depth: 0
+          fetch-depth: 1
       - name: CB - Context
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
@@ -60,7 +60,7 @@ jobs:
           echo $COMMIT_ID
           echo $MESSAGE
           echo $SHELL
-          
+
       - name: If else
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
