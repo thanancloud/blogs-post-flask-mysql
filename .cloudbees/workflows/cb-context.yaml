@@ -3,6 +3,10 @@ kind: workflow
 name: My workflow
 on:
   workflow_dispatch:
+    inputs:
+      Hello:
+        type: string
+        default: sad
   push:
     branches:
       - "***"
@@ -42,7 +46,8 @@ jobs:
           echo ${{ cloudbees.event_name }}
           echo "Test ENVIRONMENT $ENVIRONMENT"
           echo "Test TAG: $TAG"
-
+          echo "Smoke|FM|ActionTest" | sed 's/\([A-Za-z0-9_]*\)/@\1/g'
+          
       - name: Git Details
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
@@ -54,7 +59,6 @@ jobs:
           echo $AUTHOR
           echo $COMMIT_ID
           echo $MESSAGE
-          
       - name: If else
         uses: docker://mcr.microsoft.com/playwright:v1.49.0-noble
         shell: sh
